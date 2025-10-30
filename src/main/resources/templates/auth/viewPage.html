@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+	<h2>spring security</h2>
+	<ul>
+		<li>
+			<a th:href="@{/home/main}">/home/main</a> (누구나 접근 가능)
+		</li>
+		<li>
+			<a th:href="@{/user/main}">/user/main</a> (가입자만 접근 가능)
+		</li>
+		<li>
+			<a th:href="@{/admin/main}">/admin/main</a> (관리자만 접근 가능)
+		</li>
+	</ul>
+</body>
+</html>
