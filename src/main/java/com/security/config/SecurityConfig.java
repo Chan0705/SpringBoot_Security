@@ -22,7 +22,7 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "auth", "/home/**", "/css/**").permitAll() //해당 경로 접근 허용
+                        .requestMatchers("/", "auth", "/home/**", "/css/**", "/valid01").permitAll() //해당 경로 접근 허용
                         .requestMatchers("/user/**").hasRole("USER") // USER만 가능
                         .requestMatchers("/admin/**").hasRole("ADMIN") // ADMIN만 가능
                         .anyRequest().authenticated() //나머지는 인증 필요

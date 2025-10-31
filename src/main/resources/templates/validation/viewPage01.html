@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>유효성 검사</title>
+</head>
+<body>
+<h3>상품 등록</h3>
+
+<form th:action="@{/valid01}" method="post"
+	  th:object="${productDTO}">
+<!-- th:object="${productDTO}" > object 값은 dto 이름과 동일하게 지정해야함	-->
+	<div th:if="${#fields.hasAnyErrors()}">
+		<div th:each="err : ${#fields.allErrors()}" th:text="${err}">
+		</div>
+	</div>
+<!-- field = "*{}" => name, id, value를 다 포함	-->
+	<p>품명: <input type="text" th:field="*{name}">
+<!--		<span th:errors="*{name}"></span>-->
+	</p>
+	<p>
+		가격: <input type="text" th:field="*{price}">
+<!--		<span th:errors="*{price}"></span>-->
+	</p>
+	<p>
+		<input type="submit" value="등록">
+		<input type="reset" value="취소">
+	</p>
+</form>
+</body>
+</html>
