@@ -22,8 +22,10 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "auth", "/home/**", "/css/**", "/valid01").permitAll() //해당 경로 접근 허용
-                        .requestMatchers("/user/**").hasRole("USER") // USER만 가능
+                        .requestMatchers("/", "/auth", "/home/**", "/css/**", "/valid01").permitAll() //해당 경로 접근 허용
+                        .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+                        // USER만 가능(hasRole) or USER ADMIN 둘 다 가능(hasAnyRole)
+//                        .requestMatchers("/user/**").hasRole("USER") // USER만 가능
                         .requestMatchers("/admin/**").hasRole("ADMIN") // ADMIN만 가능
                         .anyRequest().authenticated() //나머지는 인증 필요
                 )
@@ -37,8 +39,10 @@ public class SecurityConfig {
                                 .logoutSuccessUrl("/auth") // 로그아웃 후 이동할 페이지 설정
                                 .invalidateHttpSession(true) // 세션삭제
                                 .deleteCookies("JSESSIONID") // 쿠키 삭제
-                        );
-
+                        )
+                                .exceptionHandling // 접근 권한 오류 설정
+                        (ex -> ex.accessDeniedPage("/noneaccess"));
+                        
         return http.build();
     } // SecurityFilterChain 닫기
 
